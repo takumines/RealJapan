@@ -1,4 +1,4 @@
-# laravel8-sample
+# RealJapan
 
 ## 手順
 #### git clone
