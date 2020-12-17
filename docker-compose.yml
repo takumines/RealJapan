@@ -28,16 +28,16 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      - MYSQL_DATABASE=${DB_NAME}
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASS}
-      - MYSQL_ROOT_PASSWORD=${DB_PASS}
-      - TZ=${TZ}
+      - MYSQL_DATABASE=${DB_NAME:-Laravel8-Sample}
+      - MYSQL_USER=${DB_USER:-user}
+      - MYSQL_PASSWORD=${DB_PASS:-}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS:-password}
+      - TZ=${TZ:-Asia/Tokyo}
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     volumes:
       - db-store:/var/lib/mysql
     ports:
-      - ${DB_PORT}:3306
+      - ${DB_PORT:-13306}:3306
 
   mailhog:
     container_name: laravel8_mailhog
