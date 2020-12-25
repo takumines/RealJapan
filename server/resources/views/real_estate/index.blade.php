@@ -14,7 +14,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label text-md-right">都道府県</label>
                                 <div class="col-sm-6 col-form-label">
-                                    <select name="prefecture" class="form-control" >
+                                    <select name="prefecture" class="form-control prefecture" >
                                         <option value="">選択してください</option>
                                         @foreach( $prefectures as $key => $value )
                                             <option
@@ -26,16 +26,8 @@
                                 </div>
                                 <label class="col-sm-6 col-form-label text-md-right">市区町</label>
                                 <div class="col-sm-6 col-form-label">
-                                    <select name="company" class="form-control" >
+                                    <select name="city" class="form-control city" >
                                         <option value="">選択してください</option>
-                                       @if(!is_string($cities))
-                                            @foreach( $cities as $city )
-                                                <option
-                                                        value="{{ $city['id'] }}">
-                                                    {{ $city['name'] }}
-                                                </option>
-                                            @endforeach
-                                       @endif
                                     </select>
                                 </div>
                             </div>

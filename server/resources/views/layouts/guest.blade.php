@@ -20,5 +20,7 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+        <script src="{{ mix('js/app.js') }}"></script>
+        <script src="{{ mix('js/prefecture.js') }}"></script>
     </body>
 </html>
