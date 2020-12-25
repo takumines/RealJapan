@@ -16,4 +16,5 @@ mix.js('resources/js/app.js', 'public/js')
         require('postcss-import'),
         require('tailwindcss'),
     ])
+    .js('resources/js/prefecture.js', 'public/js')
     .webpackConfig(require('./webpack.config'));
