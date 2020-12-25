@@ -8,18 +8,34 @@ use App\PrefectureApi\PrefectureSearch;
 
 class RealEstateSearchController extends Controller
 {
-    public function index(PrefectureSearch $prefectureSearch, RealEstateSearchRequest $request)
+    /**
+     * 検索画面
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index()
     {
         $prefectures = Prefecture::PREFECTURES;
-        $cities = '';
-        if ($request->input('prefecture')) {
-            $code = $request->input('prefecture');
-            $cities = $prefectureSearch->citySearch((string)$code);
-        }
 
         return view('real_estate.index', [
             'prefectures' => $prefectures,
-            'cities'      => $cities,
         ]);
+    }
+
+    /**
+     * 都道府県APIを叩く
+     *
+     * @param PrefectureSearch $prefectureSearch
+     * @param RealEstateSearchRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function searchCity(PrefectureSearch $prefectureSearch, RealEstateSearchRequest $request)
+    {
+        $code = $request->input('prefecture');
+        $cities = $prefectureSearch->citySearch((string)$code);
+        $data = response()->json($cities);
+
+        return $data;
     }
 }
