@@ -3,8 +3,6 @@
 
 namespace App\PrefectureApi;
 
-
-
 use GuzzleHttp\Client;
 
 class PrefectureSearch
@@ -14,6 +12,11 @@ class PrefectureSearch
         $this->client = new Client;
     }
 
+    /**
+     * @param string $cityCode
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function citySearch(string $cityCode)
     {
         $url = 'https://www.land.mlit.go.jp/webland/api/CitySearch?area=' . urlencode($cityCode);
@@ -25,17 +28,4 @@ class PrefectureSearch
 
         return $cities;
     }
-
-    // 必要ないかも
-//    public function areaSearch(string $cityCode, string $areaCode)
-//    {
-//        $url = 'https://www.land.mlit.go.jp/webland/api/CitySearch?area=' .$cityCode;
-//        $method = 'GET';
-//
-//        $response = $this->client->request($method, $url);
-//        $areas = $response->getBody();
-//        $areas = json_decode($areas, true)['data'];
-//
-//        return $areas;
-//    }
 }
