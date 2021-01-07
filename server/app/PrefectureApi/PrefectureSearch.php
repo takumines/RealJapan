@@ -7,6 +7,9 @@ use GuzzleHttp\Client;
 
 class PrefectureSearch
 {
+    /**
+     * PrefectureSearch constructor.
+     */
     public function __construct()
     {
         $this->client = new Client;
