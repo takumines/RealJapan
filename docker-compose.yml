@@ -9,7 +9,7 @@ services:
     volumes:
       - ./server:/var/www
     depends_on:
-      - mysql
+      - postgres
       - mailhog
 
   nginx:
@@ -23,21 +23,20 @@ services:
     depends_on:
       - php
 
-  mysql:
-    container_name: laravel_mysql
-    image: mysql:5.7
+  postgres:
+    image: postgres:10.6
+    container_name: laravel_postgres
     restart: always
     environment:
-      - MYSQL_DATABASE=${DB_NAME:-Laravel8-Sample}
-      - MYSQL_USER=${DB_USER:-user}
-      - MYSQL_PASSWORD=${DB_PASS:-}
-      - MYSQL_ROOT_PASSWORD=${DB_PASS:-password}
+      - POSTGRES_DB=${POSTGRES_DB:-Laravel8-Sample}
+      - POSTGRES_USER=${POSTGRES_USER:-user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-}
       - TZ=${TZ:-Asia/Tokyo}
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     volumes:
-      - db-store:/var/lib/mysql
+      - ./docker/postgres/data:/var/lib/postgresql/data
+      - ./docker/postgres/sql:/docker-entrypoint-initdb.d
     ports:
-      - ${DB_PORT:-13306}:3306
+      - ${DB_PORT:-5432}:5432
 
   mailhog:
     container_name: laravel8_mailhog
@@ -45,8 +44,3 @@ services:
     ports:
       - 1025:1025
       - 8025:8025
-
-######### Volumes ###################################
-
-volumes:
-  db-store:

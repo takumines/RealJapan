@@ -3,8 +3,8 @@ FROM php:7.4-fpm
 RUN apt-get update \
   && apt-get install -y zlib1g-dev zip curl wget
 
-# MySQL
-RUN apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_mysql
+# Postgres
+RUN apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql
 
 # GD
 RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev

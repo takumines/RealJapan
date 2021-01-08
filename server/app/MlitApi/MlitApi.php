@@ -4,6 +4,7 @@
 namespace App\MlitApi;
 
 
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 
 class MlitApi
@@ -16,12 +17,33 @@ class MlitApi
         $this->client = new Client;
     }
 
+    /**
+     *
+     *
+     * @param string $prefectureCode
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function mlitList(string $prefectureCode)
     {
-        // TODO: パラメータのfromを現在時刻の年数から生成
-        // TODO: パラメータのtoをfromから5年を引いた年数で生成
+        $now = Carbon::now();
+        $fiveYearsAgo = $now->subYears(5);
 
-        // TODO: $urlのパラメータにfrom, to, $prefectureCodeを設定する
-        $url = 'https://www.land.mlit.go.jp/webland/api/TradeListSearch?f';
+        $fromYear = $fiveYearsAgo->format('Y');
+        $fromQuarter = $fiveYearsAgo->quarter;
+        $from = $fromYear . $fromQuarter;
+
+        $toYear = $now->format('Y');
+        $toQuarter = $now->quarter;
+        $to = $toYear . $toQuarter;
+
+        $url = 'https://www.land.mlit.go.jp/webland/api/TradeListSearch?from=' . $from . '&to=' . $to . '&area=45';
+        $method = 'GET';
+
+        $response = $this->client->request($method, $url);
+        $mlitList = $response->getBody();
+        $mlitList = json_decode($mlitList, true)['data'];
+
+        return $mlitList;
     }
 }
