@@ -2112,9 +2112,8 @@ var axios = axiosBase.create({
   responseType: 'json'
 });
 $(function () {
-  $('.prefecture').on('change', function () {
+  $('#prefecture').on('change', function () {
     var pref_val = $(this).val();
-    console.log(pref_val);
     axios.get('/search', {
       params: {
         prefecture: pref_val
@@ -2123,7 +2122,7 @@ $(function () {
       // handle success
       $('.city option').remove();
       $.each(response.data, function (key, value) {
-        $('.city').append($('<option>').text(value.name).attr('value', value.name));
+        $('#city').append($('<option>').text(value.name).attr('value', value.id));
       });
     })["catch"](function (error) {
       // handle error

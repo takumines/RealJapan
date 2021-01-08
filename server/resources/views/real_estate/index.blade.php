@@ -16,7 +16,7 @@
                                 <div class="col-4">
                                     <label class="col-form-label">都道府県</label>
                                     <div class="col-form-label">
-                                        <select name="prefecture" class="form-control prefecture" >
+                                        <select id="prefecture" name="prefecture" class="form-control" >
                                             <option value="">選択してください</option>
                                             @foreach( $prefectures as $key => $value )
                                                 <option
@@ -30,7 +30,7 @@
                                 <div class="col-4">
                                     <label class="col-form-label">市区町</label>
                                     <div class="col-form-label">
-                                        <select name="city" class="form-control city" >
+                                        <select id="city" name="city" class="form-control" >
                                             <option>選択してください</option>
                                         </select>
                                     </div>
@@ -38,7 +38,7 @@
                                 <div class="col-4">
                                     <label class="col-form-label">地域</label>
                                     <div class="col-form-label">
-                                        <select name="area" class="form-control area">
+                                        <select id="area" name="area" class="form-control">
                                             <option>選択してください</option>
                                         </select>
                                     </div>
@@ -49,7 +49,7 @@
                                 <div class="col-4">
                                     <label class="col-form-label">物件タイプ</label>
                                     <div class="col-form-label">
-                                        <select name="property_type" class="form-control property_type">
+                                        <select id="property_type" name="property_type" class="form-control">
                                             <option>選択してください</option>
                                         </select>
                                     </div>
@@ -57,13 +57,13 @@
                                 <div class="col-4">
                                     <label class="col-form-label">価格</label>
                                     <div class="col-form-label">
-                                        <input type="text" name="price" value="{{ old('price') }}" class="form-control" placeholder="入力してください">
+                                        <input id="price" type="text" name="price" value="{{ old('price') }}" class="form-control" placeholder="入力してください">
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <label class="col-form-label">面積</label>
                                     <div class="col-form-label">
-                                        <input type="text" name="square_meters" value="{{ old('square_meters') }}" class="form-control" placeholder="入力してください">
+                                        <input id="square_meters" type="text" name="square_meters" value="{{ old('square_meters') }}" class="form-control" placeholder="入力してください">
                                     </div>
                                 </div>
                             </div>
