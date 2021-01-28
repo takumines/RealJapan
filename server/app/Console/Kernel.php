@@ -10,13 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
-    private $mlitApi;
-
-    public function __construct(MlitApi $mlitApi)
-    {
-        $this->mlitApi = $mlitApi;
-    }
-
     /**
      * The Artisan commands provided by your application.
      *
@@ -34,7 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-       $schedule->call(function () {
+       $schedule->call(function (MlitApi $mlitApi) {
            $prefectures = Prefecture::PREFECTURES;
 
            foreach ($prefectures as $prefecture) {
@@ -75,7 +68,7 @@ class Kernel extends ConsoleKernel
                DB::beginTransaction();
                try {
                    foreach ($realEstateInformationList as $realEstateInformation) {
-                       DB::table('real_estate_informations')->insert($realEstateInformation);
+                       DB::table('properties')->insert($realEstateInformation);
                    }
                    DB::commit();
                } catch (\Exception $e) {
