@@ -2120,7 +2120,7 @@ $(function () {
       }
     }).then(function (response) {
       // handle success
-      $('.city option').remove();
+      $('#city option').remove();
       $.each(response.data, function (key, value) {
         $('#city').append($('<option>').text(value.name).attr('value', value.id));
       });

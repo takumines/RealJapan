@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRealEstateInfomationsTable extends Migration
+class CreatePropertiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRealEstateInfomationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('real_estate_informations', function (Blueprint $table) {
+        Schema::create('properties', function (Blueprint $table) {
             $table->string('type')->comment('取引の種類');
             $table->string('municipality_code')->index()->comment('市区町村コード');
             $table->string('prefecture')->index()->comment('都道府県名');
@@ -33,6 +33,6 @@ class CreateRealEstateInfomationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('real_estate_infomations');
+        Schema::dropIfExists('properties');
     }
 }

@@ -17,7 +17,7 @@ class RealEstateSearchController extends Controller
     {
         $prefectures = Prefecture::PREFECTURES;
 
-        return view('real_estate.index', [
+        return view('property.index', [
             'prefectures' => $prefectures,
         ]);
     }
