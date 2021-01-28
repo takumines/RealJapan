@@ -15,13 +15,12 @@ class CreateRealEstateInfomationsTable extends Migration
     {
         Schema::create('real_estate_informations', function (Blueprint $table) {
             $table->string('type')->comment('取引の種類');
-            $table->string('region')->comment('地区');
             $table->string('municipality_code')->index()->comment('市区町村コード');
             $table->string('prefecture')->index()->comment('都道府県名');
             $table->string('municipality')->index()->comment('市区町村名');
             $table->string('district_name')->index()->comment('地区名');
             $table->string('area')->comment('面積');
-            $table->string('price_per_unit')->nullable()->comment('坪単価');
+            $table->string('trade_price')->nullable()->comment('総取引額');
             $table->string('unit_price')->comment('平米単価');
             $table->string('period')->index()->comment('取引時点');
         });
