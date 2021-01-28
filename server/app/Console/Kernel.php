@@ -2,11 +2,21 @@
 
 namespace App\Console;
 
+use App\Enums\Prefecture;
+use App\MlitApi\MlitApi;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
+    private $mlitApi;
+
+    public function __construct(MlitApi $mlitApi)
+    {
+        $this->mlitApi = $mlitApi;
+    }
+
     /**
      * The Artisan commands provided by your application.
      *
@@ -24,7 +34,55 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+       $schedule->call(function () {
+           $prefectures = Prefecture::PREFECTURES;
+
+           foreach ($prefectures as $prefecture) {
+               $mlitList = $mlitApi->mlitList($prefecture);
+               $realEstateInformationList = [];
+               foreach ($mlitList as $mlit) {
+                   $collection = collect($mlit);
+                   $filtered = $collection->only([
+                       'Type',
+                       'MunicipalityCode',
+                       'Prefecture',
+                       'Municipality',
+                       'DistrictName',
+                       'Area',
+                       'UnitPrice',
+                       'TradePrice',
+                       'Period'
+                   ]);
+                   // ここの処理を関数化して処理できるとスマート
+                   $converted = [];
+                   $converted['type'] = $filtered['Type'];
+                   $converted['municipality_code'] = $filtered['MunicipalityCode'];
+                   $converted['prefecture'] = $filtered['Prefecture'];
+                   $converted['municipality'] = $filtered['Municipality'];
+                   $converted['district_name'] = empty($filtered['DistrictName']) ? '土地名なし' : $filtered['DistrictName'];
+                   $converted['area'] = (int)$filtered['Area'];
+                   $converted['trade_price'] = (int)$filtered['TradePrice'];
+                   $converted['period'] = $filtered['Period'];
+                   if (empty($filtered['UnitPrice'])) {
+                       $result = $converted['trade_price'] / $converted['area'];
+                       $converted['unit_price'] = round($result);
+                   } else {
+                       $converted['unit_price'] = (int)$filtered['UnitPrice'];
+                   }
+
+                   $realEstateInformationList[] = $converted;
+               }
+               DB::beginTransaction();
+               try {
+                   foreach ($realEstateInformationList as $realEstateInformation) {
+                       DB::table('real_estate_informations')->insert($realEstateInformation);
+                   }
+                   DB::commit();
+               } catch (\Exception $e) {
+                   DB::rollBack();
+               }
+           }
+       })->quarterly();
     }
 
     /**
