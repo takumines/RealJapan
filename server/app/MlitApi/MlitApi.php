@@ -37,7 +37,7 @@ class MlitApi
         $toQuarter = $now->quarter;
         $to = $toYear . $toQuarter;
 
-        $url = 'https://www.land.mlit.go.jp/webland/api/TradeListSearch?from=' . $from . '&to=' . $to . '&area=45';
+        $url = 'https://www.land.mlit.go.jp/webland/api/TradeListSearch?from=' . $from . '&to=' . $to . '&area=' . $prefectureCode;
         $method = 'GET';
 
         $response = $this->client->request($method, $url);
