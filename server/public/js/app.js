@@ -21297,6 +21297,49 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
+__webpack_require__(/*! ./prefecture */ "./resources/js/prefecture.js");
+
+__webpack_require__(/*! ./area */ "./resources/js/area.js");
+
+__webpack_require__(/*! ./propertyType */ "./resources/js/propertyType.js");
+
+/***/ }),
+
+/***/ "./resources/js/area.js":
+/*!******************************!*\
+  !*** ./resources/js/area.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var axiosBase = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var axios = axiosBase.create({
+  baseURL: 'http://localhost:80',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  responseType: 'json'
+});
+$(function () {
+  $('#city').on('change', function () {
+    var city_val = $(this).val();
+    axios.get('/search-area', {
+      params: {
+        city: city_val
+      }
+    }).then(function (response) {
+      $('#area option').remove();
+      $.each(response.data, function (key, value) {
+        $('#area').append($('<option>').text(value).attr('value', value));
+      });
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -21328,6 +21371,80 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/prefecture.js":
+/*!************************************!*\
+  !*** ./resources/js/prefecture.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var axiosBase = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var axios = axiosBase.create({
+  baseURL: 'http://localhost:80',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  responseType: 'json'
+});
+$(function () {
+  $('#prefecture').on('change', function () {
+    var pref_val = $(this).val();
+    axios.get('/search-city', {
+      params: {
+        prefecture: pref_val
+      }
+    }).then(function (response) {
+      $('#city option').remove();
+      $.each(response.data, function (key, value) {
+        $('#city').append($('<option>').text(value.name).attr('value', value.id));
+      });
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/propertyType.js":
+/*!**************************************!*\
+  !*** ./resources/js/propertyType.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var axiosBase = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var axios = axiosBase.create({
+  baseURL: 'http://localhost:80',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  responseType: 'json'
+});
+$(function () {
+  $('#area').on('change', function () {
+    var type_val = $(this).val();
+    axios.get('/search-property-type', {
+      params: {
+        areaName: type_val
+      }
+    }).then(function (response) {
+      $('#property_type option').remove();
+      $.each(response.data, function (key, value) {
+        $('#property_type').append($('<option>').text(value).attr('value', value));
+      });
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  });
+});
 
 /***/ }),
 
