@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2094,10 +2094,10 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./resources/js/prefecture.js":
-/*!************************************!*\
-  !*** ./resources/js/prefecture.js ***!
-  \************************************/
+/***/ "./resources/js/propertyType.js":
+/*!**************************************!*\
+  !*** ./resources/js/propertyType.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2112,16 +2112,16 @@ var axios = axiosBase.create({
   responseType: 'json'
 });
 $(function () {
-  $('#prefecture').on('change', function () {
-    var pref_val = $(this).val();
-    axios.get('/search-city', {
+  $('#area').on('change', function () {
+    var type_val = $(this).val();
+    axios.get('/search-property-type', {
       params: {
-        prefecture: pref_val
+        areaName: type_val
       }
     }).then(function (response) {
-      $('#city option').remove();
+      $('#property_type option').remove();
       $.each(response.data, function (key, value) {
-        $('#city').append($('<option>').text(value.name).attr('value', value.id));
+        $('#property_type').append($('<option>').text(value).attr('value', value));
       });
     })["catch"](function (error) {
       console.log(error);
@@ -2131,14 +2131,14 @@ $(function () {
 
 /***/ }),
 
-/***/ 1:
-/*!******************************************!*\
-  !*** multi ./resources/js/prefecture.js ***!
-  \******************************************/
+/***/ 3:
+/*!********************************************!*\
+  !*** multi ./resources/js/propertyType.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/resources/js/prefecture.js */"./resources/js/prefecture.js");
+module.exports = __webpack_require__(/*! /var/www/resources/js/propertyType.js */"./resources/js/propertyType.js");
 
 
 /***/ })

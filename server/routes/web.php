@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\RealEstateSearchController;
+use App\Http\Controllers\PropertyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [RealEstateSearchController::class, 'index']);
-Route::get('/search', [RealEstateSearchController::class, 'searchCity']);
+Route::get('/', [PropertyController::class, 'index']);
+Route::get('/search-city', [PropertyController::class, 'searchCity']);
+Route::get('/search-area', [PropertyController::class, 'searchArea']);
+Route::get('/search-property-type', [PropertyController::class, 'searchPropertyType']);
+Route::post('/search', [PropertyController::class, 'search'])->name('search');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
