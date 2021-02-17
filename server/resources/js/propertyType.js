@@ -9,20 +9,19 @@ const axios = axiosBase.create({
 });
 
 $(function (){
-    $('#prefecture').on('change', function () {
-        let pref_val = $(this).val();
-        axios.get('/search-city', {
+    $('#area').on('change', function () {
+        let type_val = $(this).val();
+        axios.get('/search-property-type', {
             params: {
-                prefecture: pref_val
+                areaName: type_val
             }
         }).then(function (response) {
-            $('#city option').remove();
+            $('#property_type option').remove();
             $.each(response.data, function (key, value) {
-                $('#city').append($('<option>').text(value.name).attr('value', value.id));
+                $('#property_type').append($('<option>').text(value).attr('value', value));
             })
         }).catch(function (error) {
             console.log(error);
         })
     })
 })
-
