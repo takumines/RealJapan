@@ -10,8 +10,9 @@
                         不動産取引が適正か調べる
                     </div>
                     <div class="card-body">
-                        <form class="form-horizontal" method="post" action="#"
+                        <form class="form-horizontal" method="post" action="/search"
                               enctype="multipart/form-data">
+                            @csrf
                             <div class="form-group row">
                                 <div class="col-3">
                                     <label class="col-form-label">都道府県</label>
@@ -60,14 +61,14 @@
                                 <div class="col-3 mx-auto">
                                     <label class="col-form-label">価格</label>
                                     <div class="col-form-label">
-                                        <input id="price" type="text" name="price" value="{{ old('price') }}" class="form-control" placeholder="入力してください">
+                                        <input id="price" type="text" name="price" value="{{ old('price') }}" class="form-control" placeholder="金額">
                                     </div>
                                 </div>
 
                                 <div class="col-3 mx-auto">
                                     <label class="col-form-label">面積</label>
                                     <div class="col-form-label">
-                                        <input id="square_meters" type="text" name="square_meters" value="{{ old('square_meters') }}" class="form-control" placeholder="入力してください">
+                                        <input id="square_meters" type="text" name="square_meters" value="{{ old('square_meters') }}" class="form-control" placeholder="m2">
                                     </div>
                                 </div>
                             </div>
